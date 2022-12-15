@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="btnClear" prefHeight="400.0" prefWidth="600.0" styleClass="btnClear" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.demofx.demofx.CalculatorController">
+   <children>
+      <Button fx:id="btnOperate" layoutX="299.0" layoutY="192.0" mnemonicParsing="false" onAction="#onOperate" prefHeight="36.0" prefWidth="78.0" styleClass="btnOperate" text="Operar" />
+      <TextField fx:id="txtOper1" layoutX="321.0" layoutY="61.0" prefHeight="29.0" prefWidth="185.0" promptText="Ingrese un numero" />
+      <TextField fx:id="textOpr2" layoutX="321.0" layoutY="132.0" prefHeight="29.0" prefWidth="185.0" promptText="Ingrese un numero" />
+      <Label contentDisplay="CENTER" layoutX="73.0" layoutY="67.0" prefHeight="6.0" prefWidth="135.0" text="Operador 1" />
+      <Label contentDisplay="CENTER" layoutX="73.0" layoutY="138.0" prefHeight="6.0" prefWidth="135.0" text="Operador 2" />
+      <Label layoutX="73.0" layoutY="351.0" prefHeight="17.0" prefWidth="84.0" text="Resultado" />
+      <TextField fx:id="txtResult" editable="false" layoutX="321.0" layoutY="345.0" prefHeight="29.0" prefWidth="185.0" promptText="Aqui aparecera el resultado" />
+      <Button layoutX="458.0" layoutY="192.0" mnemonicParsing="false" onAction="#onClear" prefHeight="36.0" prefWidth="66.0" styleClass="btnClear" text="Limpiar" />
+      <RadioButton fx:id="rdbSumar" layoutX="300.0" layoutY="260.0" mnemonicParsing="false" styleClass="rdbSumar" text="Sumar" />
+      <RadioButton fx:id="rdbRestar" layoutX="435.0" layoutY="260.0" mnemonicParsing="false" styleClass="rdbRestar" text="Restar" />
+      <RadioButton fx:id="rdbMultiplicar" layoutX="299.0" layoutY="292.0" mnemonicParsing="false" styleClass="rdbMultiplicar" text="Multiplicar" />
+      <RadioButton fx:id="rdbDividir" layoutX="435.0" layoutY="292.0" mnemonicParsing="false" styleClass="rdbDividir" text="Dividir" />
+   </children>
+</AnchorPane>

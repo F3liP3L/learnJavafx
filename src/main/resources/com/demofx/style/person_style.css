@@ -1,0 +1,8 @@
+    Button {
+    -fx-background-color: #a7f5d7;
+    -fx-border-width: 5px;
+}
+    Button:hover {
+        -fx-background-color: #93a9a4;
+        -fx-font-size: 15px;
+    }

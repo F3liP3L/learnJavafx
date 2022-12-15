@@ -1,0 +1,14 @@
+
+
+.btnHello {
+    -fx-background-color: cornflowerblue;
+    -fx-text-fill: #E5E5E5;
+    -fx-border-style: solid;
+    -fx-border-width: 5px;
+}
+
+.labelHello {
+    -fx-background-color:cornflowerblue;
+    -fx-text-fill: #E5E5E5;
+    -fx-start-margin: 0.4em;
+}
