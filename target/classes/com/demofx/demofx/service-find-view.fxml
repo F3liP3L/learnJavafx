@@ -8,22 +8,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="545.0" prefWidth="792.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.demofx.demofx.ServiceFindController">
-   <children>
-      <TableView fx:id="tblService" layoutX="119.0" layoutY="160.0" prefHeight="286.0" prefWidth="596.0">
+    <TableView fx:id="tblService" layoutX="119.0" layoutY="160.0" prefHeight="286.0" prefWidth="596.0">
         <columns>
-          <TableColumn id="col" fx:id="colTuiton" prefWidth="114.0" text="Matricula" />
-          <TableColumn fx:id="colBrand" prefWidth="88.0" text="Marca" />
-            <TableColumn fx:id="colPrice" prefWidth="99.0" text="Precio" />
-            <TableColumn fx:id="colDateRegister" prefWidth="103.0" text="Fecha alquiler" />
-            <TableColumn fx:id="colDateDelivery" prefWidth="100.0" text="Fecha entrega" />
-            <TableColumn fx:id="colTotal" prefWidth="91.0" text="Total" />
+            <TableColumn id="col" fx:id="colTuiton" prefWidth="114.0" text="Matricula"/>
+            <TableColumn fx:id="colBrand" prefWidth="88.0" text="Marca"/>
+            <TableColumn fx:id="colPrice" prefWidth="99.0" text="Precio"/>
+            <TableColumn fx:id="colDateRegister" prefWidth="103.0" text="Fecha alquiler"/>
+            <TableColumn fx:id="colDateDelivery" prefWidth="100.0" text="Fecha entrega"/>
+            <TableColumn fx:id="colTotal" prefWidth="91.0" text="Total"/>
         </columns>
-      </TableView>
-      <DatePicker fx:id="dateRegister" layoutX="93.0" layoutY="85.0" />
-      <DatePicker fx:id="dateDelivery" layoutX="330.0" layoutY="85.0" />
-      <ComboBox fx:id="listCustomer" layoutX="573.0" layoutY="85.0" prefWidth="150.0" />
-      <Label layoutX="138.0" layoutY="59.0" prefHeight="19.0" prefWidth="85.0" text="Fecha Registro" />
-      <Label layoutX="375.0" layoutY="59.0" prefHeight="19.0" prefWidth="85.0" text="Fecha Entrega" />
-      <Label layoutX="630.0" layoutY="56.0" prefHeight="25.0" prefWidth="37.0" text="Cliente" textAlignment="CENTER" />
-   </children>
+    </TableView>
+    <DatePicker fx:id="dateRegister" layoutX="93.0" layoutY="85.0"/>
+    <DatePicker fx:id="dateDelivery" layoutX="330.0" layoutY="85.0"/>
+    <ComboBox fx:id="listCustomer" layoutX="573.0" layoutY="85.0" prefWidth="150.0"/>
+    <Label layoutX="138.0" layoutY="59.0" prefHeight="19.0" prefWidth="85.0" text="Fecha Registro"/>
+    <Label layoutX="375.0" layoutY="59.0" prefHeight="19.0" prefWidth="85.0" text="Fecha Entrega"/>
+    <Label layoutX="630.0" layoutY="56.0" prefHeight="25.0" prefWidth="37.0" text="Cliente" textAlignment="CENTER"/>
 </AnchorPane>

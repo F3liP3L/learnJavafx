@@ -50,7 +50,6 @@ public class MainController implements Initializable {
     public void onFindService(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("service-find-view.fxml"));
-
             Parent root = loader.load();
             ServiceFindController controller = loader.getController();
             Scene scene = new Scene(root);

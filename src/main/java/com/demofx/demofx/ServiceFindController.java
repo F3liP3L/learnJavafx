@@ -1,5 +1,9 @@
 package com.demofx.demofx;
 
+import com.demofx.demofx.modelo.Customer;
+import com.demofx.demofx.modelo.Service;
+import com.demofx.demofx.modelo.Vehicle;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -9,36 +13,60 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class ServiceFindController implements Initializable {
     @FXML
-    private TableView tblService;
+    private TableView<Service> tblService;
     @FXML
-    private TableColumn colTuiton;
+    private TableColumn<Service, String> colTuiton;
     @FXML
-    private TableColumn colBrand;
+    private TableColumn<Service, String> colBrand;
     @FXML
-    private TableColumn colPrice;
+    private TableColumn<Service, Double> colPrice;
     @FXML
-    private TableColumn colDateRegister;
+    private TableColumn<Service, LocalDate> colDateRegister;
     @FXML
-    private TableColumn colDateDelivery;
+    private TableColumn<Service, LocalDate> colDateDelivery;
     @FXML
-    private TableColumn colTotal;
+    private TableColumn<Service, Double> colTotal;
     @FXML
     private DatePicker dateRegister;
     @FXML
     private DatePicker dateDelivery;
     @FXML
-    private ComboBox listCustomer;
+    private ComboBox<Customer> listCustomer;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+            this.colTuiton.setCellValueFactory(new PropertyValueFactory<>("tuitionVehicle"));
+            this.colBrand.setCellValueFactory(new PropertyValueFactory<>("brand"));
+            this.colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+            this.colDateRegister.setCellValueFactory(new PropertyValueFactory<>("fechaRegister"));
+            this.colDateDelivery.setCellValueFactory(new PropertyValueFactory<>("dateDelivery"));
+            this.colTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
+        try {
+            Service service = new Service();
+            ObservableList<Service> services = service.getService();
+            this.tblService.setItems(services);
+        } catch (SQLException exception){
+            System.out.println(exception.getMessage());
+        }
+        try {
+            Customer customer = new Customer();
+            ObservableList<Customer> observableListCustomer = customer.getCustomer();
+            this.listCustomer.setItems(observableListCustomer);
+        } catch (SQLException exception){
+            System.out.println(exception.getMessage());
+        }
     }
 
     public void closeWindows() {
