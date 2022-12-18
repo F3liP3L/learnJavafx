@@ -11,38 +11,43 @@ public class Vehicle {
     private String brand;
     private Integer kilometer;
     private Double price;
+    private boolean state;
 
+    public boolean isState() {
+        return state;
+    }
 
-    public Vehicle(String tuition, String description, String brand, Integer kilometer, Double price) {
+    public void setState(boolean state) {
+        this.state = state;
+    }
+
+    public Vehicle(String tuition, String description, String brand, Integer kilometer, Double price, boolean state) {
         this.tuition = tuition;
         this.description = description;
         this.brand = brand;
         this.kilometer = kilometer;
         this.price = price;
+        this.state = state;
     }
 
     public Vehicle() {
-        this.tuition = tuition;
-        this.description = description;
-        this.brand = brand;
-        this.kilometer = kilometer;
-        this.price = price;
     }
 
     public ObservableList<Vehicle> getVehicle() throws SQLException {
         ObservableList<Vehicle> observableVehicle = FXCollections.observableArrayList();
         try {
             Statement statement = openConnection().createStatement();
-            ResultSet result = statement.executeQuery("select * from vehiculos");
+            ResultSet result = statement.executeQuery("select * from vehiculos where estado = false");
             while (result.next()) {
                 String tuition = result.getString("matricula");
                 String brand = result.getString("marca");
                 String description = result.getString("descripcion");
                 Integer kilometer = result.getInt("kilometros");
                 Double price = (double) result.getInt("precio");
+                boolean state = result.getBoolean("estado");
 
 
-                Vehicle vehicle = new Vehicle(tuition,description,brand,kilometer,price);
+                Vehicle vehicle = new Vehicle(tuition,description,brand,kilometer,price, state);
                 observableVehicle.add(vehicle);
             }
             openConnection().close();
@@ -51,6 +56,17 @@ public class Vehicle {
         }
 
         return observableVehicle;
+    }
+
+    public boolean updateState() throws SQLException {
+        boolean itUpdate = false;
+            Statement statement = openConnection().createStatement();
+            int result = statement.executeUpdate("UPDATE vehiculos SET estado = " + state + " WHERE  matricula = '"+tuition+"'");
+            openConnection().close();
+            if (result > 0) {
+                itUpdate = true;
+            }
+        return itUpdate;
     }
 
     public Connection openConnection() throws SQLException {

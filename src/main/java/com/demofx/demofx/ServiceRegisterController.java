@@ -11,10 +11,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ResourceBundle;
 
 public class ServiceRegisterController implements Initializable {
@@ -37,9 +39,9 @@ public class ServiceRegisterController implements Initializable {
     @FXML
     private TextField txtDescription;
     @FXML
-    private ChoiceBox<Customer> listCustomer;
+    private ComboBox<Customer> listCustomer;
     @FXML
-    private ChoiceBox<Vehicle> listVehicle;
+    private ComboBox<Vehicle> listVehicle;
     @FXML
     private DatePicker dateRental;
     @FXML
@@ -108,6 +110,29 @@ public class ServiceRegisterController implements Initializable {
                 alert.setTitle("Servicio Registrado!");
                 alert.setContentText("El servicio se ha registrado con exito 😁.");
                 alert.showAndWait();
+
+                vehicle.setState(true);
+
+                if(vehicle.updateState()){
+                    Alert alertVehicle = new Alert(Alert.AlertType.CONFIRMATION);
+                    alertVehicle.setHeaderText(null);
+                    alertVehicle.setTitle("Vehiculo Actualizado");
+                    alertVehicle.setContentText("El estado del vehiculo ha sido actualizado.");
+                    alertVehicle.showAndWait();
+
+                    ObservableList<Vehicle> vehicles = vehicle.getVehicle();
+                    this.listVehicle.setItems(vehicles);
+                    this.txtPrice.setText("");
+                    this.txtBrand.setText("");
+                    this.txtKilometres.setText("");
+                    this.txtDescription.setText("");
+                } else {
+                    Alert alertVehicle = new Alert(Alert.AlertType.ERROR);
+                    alertVehicle.setHeaderText(null);
+                    alertVehicle.setTitle("Error");
+                    alertVehicle.setContentText("El estado del vehiculo no pudo ser actualizado.");
+                    alertVehicle.showAndWait();
+                }
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText(null);
@@ -149,5 +174,76 @@ public class ServiceRegisterController implements Initializable {
             isNull = true;
         }
         return isNull;
+    }
+
+    public void totalService() {
+
+        // Obtengo las fechas de inicio y fin.
+
+        LocalDate dateRegister = this.dateRental.getValue();
+        LocalDate dateDelivery = this.dateDelivery.getValue();
+
+        // Entramos si el inicio y el fin no es nulo y hay un vehiculo seleccionado
+
+        if (dateRegister != null && dateDelivery != null && this.listVehicle.getValue() != null) {
+
+            // Obtengo la diferencia de dias
+
+            Period p = Period.between(dateRegister, dateDelivery);
+            long days = p.getDays();
+
+            // Calculo el total
+
+            Double total = days * Double.parseDouble(this.txtPrice.getText());
+            System.out.println(total);
+            if (total < 0) {
+                this.txtTotal.setText("0");
+            } else {
+                this.txtTotal.setText(total.toString());
+            }
+
+        } else {
+            this.txtTotal.setText("0");
+        }
+
+    }
+
+
+    @FXML
+    private void selectCustomer(ActionEvent event) {
+
+        Customer c = this.listCustomer.getValue();
+
+        if (c != null) {
+            //Seteo los calores
+            this.txtNif.setText(c.getNif());
+            this.txtAddress.setText(c.getAddress());
+            this.txtPopulation.setText(c.getPopulation());
+        }
+    }
+
+    @FXML
+    private void selectVehicle(ActionEvent event) {
+        // Obtengo el valor del combo del vehiculo
+        Vehicle v = this.listVehicle.getValue();
+
+        if (v != null) {
+
+            this.txtDescription.setText(v.getDescription());
+            this.txtBrand.setText(v.getBrand());
+            this.txtKilometres.setText(v.getKilometer().toString());
+            this.txtPrice.setText(v.getPrice().toString());
+            totalService();
+
+        }
+
+    }
+    @FXML
+    private void selectDateRental(ActionEvent event) {
+        totalService();
+    }
+    @FXML
+    private void selectDateDelivery(MouseEvent event) {
+        totalService();
     }
 }

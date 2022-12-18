@@ -4,6 +4,7 @@ import com.demofx.demofx.modelo.Customer;
 import com.demofx.demofx.modelo.Service;
 import com.demofx.demofx.modelo.Vehicle;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -127,5 +128,37 @@ public class ServiceFindController implements Initializable {
 
     public void setListCustomer(ComboBox listCustomer) {
         this.listCustomer = listCustomer;
+    }
+
+    @FXML
+    public void onFindByDateRegister(ActionEvent actionEvent) {
+        findService();
+    }
+
+    @FXML
+    public void onFindByDateDelivery(ActionEvent actionEvent) {
+        findService();
+    }
+    @FXML
+    public void onFindByCustomer(ActionEvent actionEvent) {
+        findService();
+    }
+
+    public void findService() {
+
+        LocalDate dateRegister = this.dateRegister.getValue();
+        LocalDate dateDelivery = this.dateDelivery.getValue();
+        Customer customer = this.listCustomer.getValue();
+        String nif = null;
+        if (customer != null){
+            nif = customer.getNif();
+        }
+        try {
+            Service service = new Service();
+            ObservableList<Service> services = service.getService(dateRegister, dateDelivery, nif);
+            this.tblService.setItems(services);
+        } catch (SQLException exception){
+            System.out.println(exception.getMessage());
+        }
     }
 }

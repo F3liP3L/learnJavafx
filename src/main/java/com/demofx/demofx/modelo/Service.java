@@ -79,22 +79,38 @@ public class Service {
         }
     }
     public ObservableList<Service> getService() throws SQLException {
+        return this.getService(null,null,null);
+    }
+
+    public ObservableList<Service> getService(LocalDate dateRegister, LocalDate dateDelivery, String nifCustomer) throws SQLException {
         ObservableList<Service> observableService = FXCollections.observableArrayList();
         try {
             Statement statement = openConnection().createStatement();
             String sql = "select v.matricula, v.marca, v.precio, s.fecha_alquiler, s.fecha_entrega, s.total" +
-                    " from servicios s, vehiculos v " +
-                    " where s.matricula_vehiculo = v.matricula";
+                    " from servicios s, vehiculos v, clientes c " +
+                    " where s.matricula_vehiculo = v.matricula and s.nif_cliente = c.nif";
+
+            if(nifCustomer != null){
+                sql += " and c.nif ='" + nifCustomer + "' ";
+            }
+            if (dateRegister != null && dateDelivery != null){
+                sql += " and s.fecha_alquiler >= '" + dateRegister.toString() + "' and s.fecha_entrega <= '" +  dateDelivery.toString() + "'";
+            } else if (dateRegister != null ) {
+                sql += " and s.fecha_alquiler >= '" + dateRegister.toString() + "' ";
+            } else if (dateDelivery != null) {
+                sql += " and s.fecha_entrega <= '" +  dateDelivery.toString() + "'";
+            }
+
             ResultSet result = statement.executeQuery(sql);
             while (result.next()) {
                 String tuition = result.getString("matricula");
                 String brand = result.getString("marca");
                 Double price = (double) result.getInt("precio");
-                LocalDate dateRegister = result.getDate("fecha_alquiler").toLocalDate();
-                LocalDate dateDelivery = result.getDate("fecha_entrega").toLocalDate();
+                LocalDate dateRegisterField = result.getDate("fecha_alquiler").toLocalDate();
+                LocalDate dateDeliveryField = result.getDate("fecha_entrega").toLocalDate();
                 Double total = (double) result.getInt("total");
 
-                Service service = new Service(tuition,dateRegister,dateDelivery,total,price,brand);
+                Service service = new Service(tuition,dateRegisterField,dateDeliveryField,total,price,brand);
 
                 observableService.add(service);
             }
