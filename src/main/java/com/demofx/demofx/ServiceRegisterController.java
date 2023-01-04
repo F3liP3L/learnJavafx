@@ -169,31 +169,20 @@ public class ServiceRegisterController implements Initializable {
     }
 
     public static boolean ifNull(Object object){
-        boolean isNull = false;
-        if(object == null){
-            isNull = true;
-        }
+        boolean isNull = object == null;
         return isNull;
     }
 
     public void totalService() {
-
         // Obtengo las fechas de inicio y fin.
-
         LocalDate dateRegister = this.dateRental.getValue();
         LocalDate dateDelivery = this.dateDelivery.getValue();
-
         // Entramos si el inicio y el fin no es nulo y hay un vehiculo seleccionado
-
         if (dateRegister != null && dateDelivery != null && this.listVehicle.getValue() != null) {
-
             // Obtengo la diferencia de dias
-
             Period p = Period.between(dateRegister, dateDelivery);
             long days = p.getDays();
-
             // Calculo el total
-
             Double total = days * Double.parseDouble(this.txtPrice.getText());
             System.out.println(total);
             if (total < 0) {
@@ -205,15 +194,12 @@ public class ServiceRegisterController implements Initializable {
         } else {
             this.txtTotal.setText("0");
         }
-
     }
 
 
     @FXML
     private void selectCustomer(ActionEvent event) {
-
         Customer c = this.listCustomer.getValue();
-
         if (c != null) {
             //Seteo los calores
             this.txtNif.setText(c.getNif());
@@ -226,17 +212,13 @@ public class ServiceRegisterController implements Initializable {
     private void selectVehicle(ActionEvent event) {
         // Obtengo el valor del combo del vehiculo
         Vehicle v = this.listVehicle.getValue();
-
         if (v != null) {
-
             this.txtDescription.setText(v.getDescription());
             this.txtBrand.setText(v.getBrand());
             this.txtKilometres.setText(v.getKilometer().toString());
             this.txtPrice.setText(v.getPrice().toString());
             totalService();
-
         }
-
     }
     @FXML
     private void selectDateRental(ActionEvent event) {

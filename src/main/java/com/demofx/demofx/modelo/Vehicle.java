@@ -13,10 +13,6 @@ public class Vehicle {
     private Double price;
     private boolean state;
 
-    public boolean isState() {
-        return state;
-    }
-
     public void setState(boolean state) {
         this.state = state;
     }
@@ -86,39 +82,20 @@ public class Vehicle {
         return tuition;
     }
 
-    public void setTuition(String tuition) {
-        this.tuition = tuition;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getBrand() {
         return brand;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
     public Integer getKilometer() {
         return kilometer;
     }
 
-    public void setKilometer(Integer kilometer) {
-        this.kilometer = kilometer;
-    }
-
     public Double getPrice() {
         return price;
-    }
-    public void setPrice(Double price) {
-        this.price = price;
     }
 
     @Override
