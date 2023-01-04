@@ -2,7 +2,6 @@ package com.demofx.demofx;
 
 import com.demofx.demofx.modelo.Customer;
 import com.demofx.demofx.modelo.Service;
-import com.demofx.demofx.modelo.Vehicle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
